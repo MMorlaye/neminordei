@@ -62,7 +62,6 @@ export function FloatingMenu() {
 
             <Button
                 onClick={toggleMenu}
-                size="icon"
                 className="h-14 w-14 rounded-full shadow-xl bg-primary hover:bg-primary/90 text-white transition-all duration-300"
             >
                 <motion.div
