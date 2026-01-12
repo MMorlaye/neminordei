@@ -96,7 +96,7 @@ export function Header() {
                 <div className="md:hidden flex items-center gap-4 z-[60]">
                     <Button
                         variant="ghost"
-                        size="icon"
+                        // size="icon"
                         onClick={() => setIsOpen(!isOpen)}
                         className={cn(
                             "relative w-14 h-14 rounded-full",
