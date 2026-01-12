@@ -42,7 +42,7 @@ export default function CommanderPage() {
     return (
         <div className="min-h-screen pt-24 pb-12 bg-gray-50">
             <div className="container mx-auto px-4 max-w-4xl">
-                <h1 className="text-3xl font-heading font-bold mb-8 text-foreground">Votre Commande</h1>
+                <h1 className="text-3xl font-heading font-bold mb-8 text-secondary">Votre Commande</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Cart Items List */}
@@ -57,21 +57,21 @@ export default function CommanderPage() {
                                     <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded-lg" />
                                 )}
                                 <div className="flex-1">
-                                    <h3 className="font-bold font-heading text-lg">{item.name}</h3>
+                                    <h3 className="font-bold font-heading text-lg text-gray-900">{item.name}</h3>
                                     <p className="text-primary font-bold">{formatCurrency(item.price)}</p>
                                 </div>
 
-                                <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1">
+                                <div className="flex items-center gap-3 bg-gray-100 rounded-lg p-1">
                                     <button
                                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                        className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors font-bold"
+                                        className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors font-bold text-gray-900"
                                     >
                                         -
                                     </button>
-                                    <span className="w-4 text-center font-medium">{item.quantity}</span>
+                                    <span className="w-4 text-center font-bold text-gray-900">{item.quantity}</span>
                                     <button
                                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                        className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors font-bold"
+                                        className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors font-bold text-gray-900"
                                     >
                                         +
                                     </button>
@@ -90,13 +90,13 @@ export default function CommanderPage() {
                     {/* Checkout Summary */}
                     <div className="lg:col-span-1">
                         <div className="bg-white p-6 rounded-xl shadow-md sticky top-24">
-                            <h3 className="font-bold text-xl mb-4 text-foreground">Récapitulatif</h3>
+                            <h3 className="font-bold text-xl mb-4 text-gray-900">Récapitulatif</h3>
                             <div className="flex justify-between mb-4 pb-4 border-b border-gray-100">
-                                <span className="text-black font-medium">Sous-total</span>
-                                <span className="font-bold">{formatCurrency(total)}</span>
+                                <span className="text-gray-700 font-medium">Sous-total</span>
+                                <span className="font-bold text-gray-900">{formatCurrency(total)}</span>
                             </div>
                             <div className="flex justify-between mb-8">
-                                <span className="text-lg font-bold text-foreground">Total</span>
+                                <span className="text-lg font-bold text-gray-900">Total</span>
                                 <span className="text-xl font-bold text-primary">{formatCurrency(total)}</span>
                             </div>
 

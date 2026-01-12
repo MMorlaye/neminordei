@@ -45,12 +45,12 @@ export function FloatingMenu() {
                                     <Button
                                         variant="secondary"
                                         size="sm"
-                                        className="shadow-lg flex items-center gap-2 pl-4 pr-3 py-6 rounded-full bg-white text-foreground hover:bg-gray-50 border border-gray-100"
+                                        className="shadow-lg flex items-center gap-2 pl-6 pr-4 py-8 rounded-full bg-white text-gray-900 hover:bg-gray-50 border border-gray-200"
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        <span className="font-medium">{link.name}</span>
+                                        <span className="font-bold text-lg">{link.name}</span>
                                         <div className="bg-primary/10 p-2 rounded-full text-primary">
-                                            <link.icon size={18} />
+                                            <link.icon size={22} />
                                         </div>
                                     </Button>
                                 </Link>
@@ -62,13 +62,13 @@ export function FloatingMenu() {
 
             <Button
                 onClick={toggleMenu}
-                className="h-14 w-14 rounded-full shadow-xl bg-primary hover:bg-primary/90 text-white transition-all duration-300"
+                className="h-16 w-16 rounded-full shadow-2xl bg-primary hover:bg-primary/90 text-white transition-all duration-300 flex items-center justify-center"
             >
                 <motion.div
                     animate={{ rotate: isOpen ? 90 : 0 }}
                     transition={{ duration: 0.2 }}
                 >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    {isOpen ? <X size={32} /> : <Menu size={32} />}
                 </motion.div>
             </Button>
         </div>

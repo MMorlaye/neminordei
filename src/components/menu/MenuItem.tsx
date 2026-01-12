@@ -19,6 +19,7 @@ export interface MenuItemProps {
 export function MenuItem({ item }: { item: MenuItemProps }) {
     const { addItem } = useCart();
     const [isAdded, setIsAdded] = useState(false);
+    const [imageSrc, setImageSrc] = useState(item.image || "/logo.png");
 
     const handleAdd = () => {
         addItem(item);
@@ -34,11 +35,12 @@ export function MenuItem({ item }: { item: MenuItemProps }) {
             exit={{ opacity: 0, scale: 0.9 }}
             className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
         >
-            <div className="h-48 overflow-hidden relative">
+            <div className="h-48 overflow-hidden relative bg-gray-100 flex items-center justify-center">
                 <img
-                    src={item.image}
+                    src={imageSrc}
                     alt={item.name}
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    onError={() => setImageSrc("/logo.png")}
+                    className={`w-full h-full object-cover transform hover:scale-105 transition-transform duration-500 ${imageSrc === "/logo.png" ? "object-contain p-8 opacity-50" : ""}`}
                 />
                 <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-sm font-bold text-primary">
                     {formatCurrency(item.price)}

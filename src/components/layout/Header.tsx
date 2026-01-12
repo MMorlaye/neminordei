@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,6 +30,18 @@ export function Header() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    // Lock body scroll when menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     // Solid background if scrolled OR if not on home page
     const isSolid = isScrolled || !isHome;
@@ -80,50 +92,79 @@ export function Header() {
                     </Link>
                 </nav>
 
-                {/* Mobile Menu Toggle */}
-                <div className="md:hidden flex items-center gap-4">
+                {/* Mobile Menu Toggle - Significantly Larger */}
+                <div className="md:hidden flex items-center gap-4 z-[60]">
                     <Button
                         variant="ghost"
-                        size="sm"
+                        size="icon"
                         onClick={() => setIsOpen(!isOpen)}
-                        className={isSolid ? "text-primary" : "text-white"}
+                        className={cn(
+                            "relative w-14 h-14 rounded-full",
+                            isOpen ? "text-white hover:bg-white/20" : (isSolid ? "text-primary hover:bg-primary/10" : "text-white hover:bg-white/10")
+                        )}
                     >
-                        {isOpen ? <X /> : <Menu />}
+                        {isOpen ? <X size={36} /> : <Menu size={36} />}
                     </Button>
                 </div>
             </div>
 
-            {/* Mobile Drawer */}
+            {/* Mobile Menu Full Screen Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 right-0 bg-white shadow-lg border-t md:hidden"
+                        initial={{ clipPath: "circle(0% at 0 0)" }}
+                        animate={{ clipPath: "circle(150% at 0 0)" }}
+                        exit={{ clipPath: "circle(0% at 0 0)" }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="fixed inset-0 z-50 bg-neutral-950 text-white flex flex-col px-8 md:hidden overflow-hidden"
                     >
-                        <nav className="flex flex-col p-4 gap-4">
+                        {/* Header Content in Menu (Logo) */}
+                        <div className="pt-6 pb-8">
+                            <Link href="/" onClick={() => setIsOpen(false)}>
+                                <img
+                                    src="/logo.png"
+                                    alt="Neminordei"
+                                    className="h-32 w-auto object-contain"
+                                />
+                            </Link>
+                        </div>
+
+                        <nav className="flex flex-col gap-8 mt-4">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setIsOpen(false)}
-                                    className="text-gray-900 text-lg font-medium py-2 border-b border-muted last:border-0"
+                                    className="text-4xl font-heading font-bold uppercase tracking-wide hover:text-primary transition-colors"
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <Link href="/commander" className="w-full">
-                                <Button className="w-full justify-between" onClick={() => setIsOpen(false)}>
-                                    Commander en ligne
-                                    {itemCount > 0 && (
-                                        <span className="bg-secondary text-white text-xs font-bold px-2 py-1 rounded-full">
-                                            {itemCount}
-                                        </span>
-                                    )}
-                                </Button>
-                            </Link>
+
+                            <div className="mt-4 border-t border-white/10 pt-8 w-max">
+                                <Link href="/commander" onClick={() => setIsOpen(false)}>
+                                    <Button variant="secondary" size="lg" className="gap-2 text-lg px-8 h-14">
+                                        <ShoppingBag size={24} />
+                                        Commander en ligne
+                                        {itemCount > 0 && (
+                                            <span className="bg-white text-secondary text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full ml-2">
+                                                {itemCount}
+                                            </span>
+                                        )}
+                                    </Button>
+                                </Link>
+                            </div>
                         </nav>
+
+                        {/* Social Icons at Bottom */}
+                        <div className="mt-auto mb-12 flex gap-8">
+                            <Link href="#" className="hover:text-primary transition-colors text-white/80" title="Messenger: Restaurant Neminordei">
+                                <Facebook size={40} />
+                            </Link>
+                            <Link href="https://instagram.com/neminordei" className="hover:text-primary transition-colors text-white/80" title="@neminordei">
+                                <Instagram size={40} />
+                            </Link>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
