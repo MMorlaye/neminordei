@@ -51,3 +51,12 @@ h5,
 h6 {
   font-family: var(--font-heading);
 }
+
+/* Enforce cursor pointer for all interactive elements */
+button,
+[role="button"],
+a,
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer !important;
+}

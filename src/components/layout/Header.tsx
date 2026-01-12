@@ -96,14 +96,13 @@ export function Header() {
                 <div className="md:hidden flex items-center gap-4 z-[60]">
                     <Button
                         variant="ghost"
-                        // size="icon"
                         onClick={() => setIsOpen(!isOpen)}
                         className={cn(
-                            "relative w-14 h-14 rounded-full",
+                            "relative !w-16 !h-16 rounded-full p-0 flex items-center justify-center",
                             isOpen ? "text-white hover:bg-white/20" : (isSolid ? "text-primary hover:bg-primary/10" : "text-white hover:bg-white/10")
                         )}
                     >
-                        {isOpen ? <X size={36} /> : <Menu size={36} />}
+                        {isOpen ? <X size={40} /> : <Menu size={40} />}
                     </Button>
                 </div>
             </div>
