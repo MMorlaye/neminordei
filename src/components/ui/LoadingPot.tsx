@@ -4,58 +4,9 @@ import { motion } from "framer-motion";
 
 export function LoadingPot() {
     return (
-        <div className="flex flex-col items-center justify-center relative min-h-[300px]">
+        <div className="flex flex-col items-center justify-center min-h-[400px]">
 
-            {/* Title Animation Container - Positioned above pot */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-20 flex items-center justify-center">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="relative"
-                >
-                    {/* The "Element" that decomposes (A stylized icon/shape) */}
-                    <motion.div
-                        initial={{ opacity: 1, scale: 1 }}
-                        animate={{ opacity: 0, scale: 2 }}
-                        transition={{ delay: 1.5, duration: 0.5 }} // Disappears as text appears
-                        className="absolute inset-0 flex items-center justify-center text-primary"
-                    >
-                        {/* A Chef Hat or Utensils Icon as the seed */}
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                            <path d="M7 2v20" />
-                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3" />
-                        </svg>
-                    </motion.div>
-
-                    {/* The Text "NEMINORDEI" forming from the center */}
-                    <div className="flex gap-1 font-heading font-bold text-3xl tracking-wider text-foreground whitespace-nowrap">
-                        {Array.from("NEMINORDEI").map((char, i) => (
-                            <motion.span
-                                key={i}
-                                initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-                                animate={{
-                                    opacity: 1,
-                                    x: 0,
-                                    y: 0,
-                                    scale: 1
-                                }}
-                                transition={{
-                                    delay: 1.8 + (i * 0.05), // Starts appearing after icon bursts
-                                    type: "spring",
-                                    stiffness: 100
-                                }}
-                                className="inline-block"
-                            >
-                                {char === " " ? "\u00A0" : char}
-                            </motion.span>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
-            <div className="relative w-32 h-32 mt-20">
+            <div className="relative w-32 h-32">
                 {/* Steam Animation */}
                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex gap-2">
                     {[0, 1, 2].map((i) => (
@@ -124,10 +75,28 @@ export function LoadingPot() {
                 </div>
             </div>
 
+            {/* Title Animation - Appears smoothly AFTER the scene is set */}
+            <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
+                className="mt-8 text-center"
+            >
+                <h1 className="text-4xl md:text-5xl font-heading font-bold tracking-[0.2em] text-foreground">
+                    NEMINORDEI
+                </h1>
+                <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
+                    className="h-1 bg-primary mx-auto mt-2 rounded-full"
+                />
+            </motion.div>
+
             <motion.p
-                className="mt-8 font-heading font-medium text-primary/80 text-sm"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+                className="mt-4 font-medium text-gray-400 text-sm tracking-widest uppercase"
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
             >
                 Préparation en cours...
             </motion.p>
